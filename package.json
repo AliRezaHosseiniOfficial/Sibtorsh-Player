@@ -1,6 +1,9 @@
 {
-  "name": "sibtorsh-player",
-  "version": "0.1.0",
+  "name": "@alirezahosseini/sibtorsh-player",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.1.2",
   "type": "module",
   "main": "dist/sibtorsh-player.umd.js",
   "module": "dist/sibtorsh-player.es.js",
@@ -39,8 +42,8 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.18"
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": ">=3.0.0"
   }
 }
