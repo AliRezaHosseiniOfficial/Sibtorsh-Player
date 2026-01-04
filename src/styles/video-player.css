@@ -1,0 +1,3 @@
+.fullscreen-safari {
+    @apply absolute top-0 bottom-0 bg-black flex justify-center left-0 right-0 z-[999];
+}
