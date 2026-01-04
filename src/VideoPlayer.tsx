@@ -7,6 +7,7 @@ import Hls from 'hls.js';
 import useDeviceType from "./utils/useDeviceType.ts";
 import DeviceTypeEnum from "./enums/DeviceTypeEnum.ts";
 import usePWAInstalled from "./utils/usePWAInstalled.tsx";
+import "./styles/video-player.css"
 
 function VideoPlayer({
                          src,
