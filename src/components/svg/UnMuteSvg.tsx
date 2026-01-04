@@ -1,4 +1,4 @@
-import SvgInterface from "@/interfaces/SvgInterface.ts";
+import SvgInterface from "../../interfaces/SvgInterface.ts";
 
 export default function ({width}: SvgInterface) {
     return <svg width={width} height={width} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

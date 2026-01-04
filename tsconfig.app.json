@@ -4,11 +4,11 @@
     "target": "ES2022",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
+//    "paths": {
+//      "@/*": [
+//        "./src/*"
+//      ]
+//    },
     "module": "ESNext",
     "types": ["vite/client"],
     "skipLibCheck": true,
@@ -28,7 +28,10 @@
     "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true
   },
   "include": ["src"]
 }

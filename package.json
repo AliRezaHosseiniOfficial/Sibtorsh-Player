@@ -3,14 +3,19 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.2",
+  "version": "0.1.7",
   "type": "module",
+  "types": "dist/index.d.ts",
   "main": "dist/sibtorsh-player.umd.js",
   "module": "dist/sibtorsh-player.es.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build:js": "vite build",
+    "build:types": "tsc -p tsconfig.types.json",
+    "build": "npm run build:js && npm run build:types",
     "lint": "eslint .",
     "preview": "vite preview"
   },

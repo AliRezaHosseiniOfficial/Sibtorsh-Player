@@ -1,5 +1,5 @@
 import {Player} from "@lottiefiles/react-lottie-player";
-import animationData from '@/assets/animations/loading.json';
+import animationData from '../assets/animations/loading.json';
 import {cloneDeep} from "lodash";
 
 function updateColor(data: any, newColor: string) {

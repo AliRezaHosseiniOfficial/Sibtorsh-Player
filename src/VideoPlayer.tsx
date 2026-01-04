@@ -1,12 +1,12 @@
-import VideoPlayerInterface from "@/interfaces/VideoPlayerInterface";
+import VideoPlayerInterface from "./interfaces/VideoPlayerInterface";
 import {useEffect, useRef, useState} from "react";
-import VideoPlayerControl from "@/components/VideoPlayerControl";
-import useUserAgent from "@/utils/useUserAgent";
+import VideoPlayerControl from "./components/VideoPlayerControl";
+import useUserAgent from "./utils/useUserAgent";
 import {debounce, findIndex} from "lodash";
 import Hls from 'hls.js';
-import useDeviceType from "@/utils/useDeviceType.ts";
-import DeviceTypeEnum from "@/enums/DeviceTypeEnum.ts";
-import usePWAInstalled from "@/utils/usePWAInstalled.tsx";
+import useDeviceType from "./utils/useDeviceType.ts";
+import DeviceTypeEnum from "./enums/DeviceTypeEnum.ts";
+import usePWAInstalled from "./utils/usePWAInstalled.tsx";
 
 function VideoPlayer({
                          src,

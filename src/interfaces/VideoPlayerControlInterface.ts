@@ -1,4 +1,4 @@
-import {RateInterface} from "@/interfaces/RateInterface.ts";
+import {RateInterface} from "./RateInterface.ts";
 
 export interface VideoPlayerControlInterface {
     canPlay: boolean,

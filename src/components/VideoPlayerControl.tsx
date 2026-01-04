@@ -1,21 +1,21 @@
-import Transition from "@/components/Transition";
-import PlayCircleSvg from "@/components/svg/PlaySvg";
-import Loading from "@/components/Loading";
-import MaximizeSvg from "@/components/svg/MaximizeSvg";
-import BackwardSvg from "@/components/svg/BackwardSvg";
-import ForwardSvg from "@/components/svg/ForwardSvg";
-import VolumeUnMuteSvg from "@/components/svg/UnMuteSvg";
-import VolumeMuteSvg from "@/components/svg/MuteSvg";
+import Transition from "../components/Transition";
+import PlayCircleSvg from "../components/svg/PlaySvg";
+import Loading from "../components/Loading";
+import MaximizeSvg from "../components/svg/MaximizeSvg";
+import BackwardSvg from "../components/svg/BackwardSvg";
+import ForwardSvg from "../components/svg/ForwardSvg";
+import VolumeUnMuteSvg from "../components/svg/UnMuteSvg";
+import VolumeMuteSvg from "../components/svg/MuteSvg";
 import React, {useEffect, useState} from "react";
-import PauseSvg from "@/components/svg/PauseSvg";
-import {formatTime} from "@/utils/DateUtils";
+import PauseSvg from "../components/svg/PauseSvg";
+import {formatTime} from "../utils/DateUtils";
 import {filter, first} from "lodash";
 // import hexToRgba from "@/utils/HexToRgba";
-import RetrySvg from "@/components/svg/RetrySvg.tsx";
-import useDeviceType from "@/utils/useDeviceType";
-import DeviceTypeEnum from "@/enums/DeviceTypeEnum";
-import {VideoPlayerControlInterface} from "@/interfaces/VideoPlayerControlInterface.ts";
-import {RateInterface} from "@/interfaces/RateInterface.ts";
+import RetrySvg from "../components/svg/RetrySvg.tsx";
+import useDeviceType from "../utils/useDeviceType";
+import DeviceTypeEnum from "../enums/DeviceTypeEnum";
+import {VideoPlayerControlInterface} from "../interfaces/VideoPlayerControlInterface.ts";
+import {RateInterface} from "../interfaces/RateInterface.ts";
 
 function VideoPlayerControl({
                                 canPlay,

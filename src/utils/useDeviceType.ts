@@ -1,4 +1,4 @@
-import DeviceTypeEnum from "@/enums/DeviceTypeEnum";
+import DeviceTypeEnum from "../enums/DeviceTypeEnum";
 import {useEffect, useState} from "react";
 
 export default function useDeviceType() {
