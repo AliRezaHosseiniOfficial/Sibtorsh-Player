@@ -13,7 +13,7 @@ function App() {
             <div className={"w-full h-1/2 bg-amber-100 rounded-2xl overflow-hidden"}>
                 <VideoPlayer
                     poster={"https://sibtorsh.s3.ir-thr-at1.arvanstorage.ir/videos%2F1767026736.jpg?versionId="}
-                    src={"https://s3.ir-thr-at1.arvanstorage.ir/sibtorsh-test/videos%2Ftest.m4v?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=94bba519-0172-4acd-8584-38c627e8aa07%2F20260105%2Fir-thr-at1%2Fs3%2Faws4_request&X-Amz-Date=20260105T050152Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&versionId=&X-Amz-Signature=469dc8a41c0cf2fc2d9a933faba0849424027e79ba66e97a975a7f78cbf0c592"} name={""} />
+                    src={"https://s3.ir-thr-at1.arvanstorage.ir/sibtorsh/videos%2FZiart12f6g2.m4v?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=94bba519-0172-4acd-8584-38c627e8aa07%2F20260105%2Fir-thr-at1%2Fs3%2Faws4_request&X-Amz-Date=20260105T095246Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&versionId=&X-Amz-Signature=fff2f60df8788deeb65e99baa00a1134839948072623a6d4f16f30ab15888152"} name={""} />
             </div>
         </section>
     </>

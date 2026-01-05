@@ -31,6 +31,7 @@ function VideoPlayer({
     const [isShowControl, setIsShowControl] = useState(false)
     const [isError, setIsError] = useState(false)
     const pwaInstalled = usePWAInstalled()
+    const [isFullScreen, setIsFullScreen] = useState(false)
     const [rates, setRates] = useState([
         {
             value: 0.5,
@@ -287,6 +288,7 @@ function VideoPlayer({
     }
 
     async function maximizeHandler() {
+        setIsFullScreen(prevState => !prevState)
         if (os.name?.toUpperCase().includes('IOS') || (browser.name?.toUpperCase().includes('SAFARI') && os.name?.toUpperCase().includes("MAC") && (deviceType === DeviceTypeEnum.MOBILE || pwaInstalled))) {
             if (safariIsFullscreen) {
                 (videoRef.current)
@@ -555,6 +557,7 @@ function VideoPlayer({
                 canPlay={canPlay}
                 isPlayed={isPlayed}
                 onChangeRate={changeRateHandle}
+                isFullScreen={isFullScreen}
                 onTryAgain={tryAgainHandle}/>
         </section>
     );

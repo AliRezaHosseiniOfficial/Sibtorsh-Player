@@ -6,7 +6,7 @@ import BackwardSvg from "../components/svg/BackwardSvg";
 import ForwardSvg from "../components/svg/ForwardSvg";
 import VolumeUnMuteSvg from "../components/svg/UnMuteSvg";
 import VolumeMuteSvg from "../components/svg/MuteSvg";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import PauseSvg from "../components/svg/PauseSvg";
 import {formatTime} from "../utils/DateUtils";
 import {filter, first} from "lodash";
@@ -17,6 +17,7 @@ import DeviceTypeEnum from "../enums/DeviceTypeEnum";
 import {VideoPlayerControlInterface} from "../interfaces/VideoPlayerControlInterface.ts";
 import {RateInterface} from "../interfaces/RateInterface.ts";
 import MainControl from "./MainControl.tsx";
+import MinimizeSvg from "./svg/MinimizeSvg.tsx";
 
 function VideoPlayerControl({
                                 canPlay,
@@ -37,59 +38,43 @@ function VideoPlayerControl({
                                 onTogglePlay,
                                 onChangeRate,
                                 onSeek,
-                                onTryAgain
+                                onTryAgain,
+                                isFullScreen
                             }: VideoPlayerControlInterface) {
     const [changeMute, setChangeMute] = useState(false)
     const [changeRate, setChangeRate] = useState(false)
     const deviceType = useDeviceType()
 
-
     const getBufferGradient = () => {
         if (!duration) return '';
 
-        // const baseColor = hexToRgba(color ?? '', 0.3);
-        // const playedColor = color;
-        const bgColor = 'rgba(0,0,0,0.15)';
-
-        const gradientParts: string[] = [];
-
         const playedPercent = (currentTime / duration) * 100;
-        // gradientParts.push(`${playedColor} 0%`);
-        // gradientParts.push(`${playedColor} ${playedPercent}%`);
 
-        if (bufferedRanges.length === 0) {
-            gradientParts.push(`${bgColor} ${playedPercent}%`);
-            gradientParts.push(`${bgColor} 100%`);
-        } else {
-            let lastEndPercent = playedPercent;
+        const playedGradient = `linear-gradient(to right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) ${playedPercent}%, transparent ${playedPercent}%)`;
 
+        const bufferColor = "rgba(0, 0, 0, 0.6)";
+        const trackBg = "rgba(255, 255, 255, 0.1)";
+
+        let bufferParts = [`transparent ${playedPercent}%`];
+
+        if (bufferedRanges.length > 0) {
             bufferedRanges.forEach((range) => {
-                const startPercent = (range.start / duration) * 100;
-                const endPercent = (range.end / duration) * 100;
+                const start = (range.start / duration) * 100;
+                const end = (range.end / duration) * 100;
 
-                if (endPercent <= playedPercent) {
-                    return;
-                }
+                if (end <= playedPercent) return;
 
-                if (startPercent > lastEndPercent) {
-                    gradientParts.push(`${bgColor} ${lastEndPercent}%`);
-                    gradientParts.push(`${bgColor} ${startPercent}%`);
-                }
-
-                // const safeStart = Math.max(startPercent, playedPercent);
-                // gradientParts.push(`${baseColor} ${safeStart}%`);
-                // gradientParts.push(`${baseColor} ${endPercent}%`);
-
-                lastEndPercent = endPercent;
+                const safeStart = Math.max(start, playedPercent);
+                bufferParts.push(`${bufferColor} ${safeStart}%`, `${bufferColor} ${end}%`);
             });
-
-            if (lastEndPercent < 100) {
-                gradientParts.push(`${bgColor} ${lastEndPercent}%`);
-                gradientParts.push(`${bgColor} 100%`);
-            }
         }
 
-        return `linear-gradient(to right, ${gradientParts.join(', ')})`;
+        bufferParts.push(`${trackBg} ${playedPercent}%`, `${trackBg} 100%`);
+
+        const secondaryGradient = `linear-gradient(to right, ${bufferParts.join(', ')})`;
+
+        // ترکیب هر دو لایه
+        return `${playedGradient}, ${secondaryGradient}`;
     };
 
     useEffect(() => {
@@ -143,7 +128,7 @@ function VideoPlayerControl({
                 className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-dark-surface/30 backdrop-blur-[1px]'}
             >
                 <MainControl>
-                    <RetrySvg/>
+                    <RetrySvg width={50}/>
                 </MainControl>
             </div>
         </Transition>
@@ -181,47 +166,34 @@ function VideoPlayerControl({
             </div>
             : null}
         <Transition
-            className={`absolute bottom-0 left-0 right-0 flex flex-col gap-1 items-center bg-black/50 rounded-lg backdrop-blur-md transition duration-500 px-3 pb-3 ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:px-12' : ''}`}
+            className={`absolute bottom-10 left-12 right-12 flex flex-col gap-5 items-center`}
             enterAnimateClass={'fadeIn'}
             exitAnimateClass={'fadeOut'}
             speedAnimateClass={'faster'}
             isVisible={canPlay && isPlayed && isShowControl}
         >
             <>
-                <div className="w-full px-1"
-                     onClick={(event) => event.stopPropagation()}>
+                <div className="w-full px-5 flex items-center"
+                     onClick={(e) => e.stopPropagation()}>
                     <input
                         type="range"
                         min={0}
                         max={duration}
-                        step={0.1}
                         value={currentTime}
-                        onClick={(event) => {
-                            event.stopPropagation()
-                        }}
-                        onChange={(event) => {
-                            const value = parseFloat(event.target.value);
-                            onSeek?.(value);
-                        }}
-                        className={`
-                            w-full h-1 appearance-none bg-light-surface/30 rounded-lg cursor-pointer
-                        `}
+                        onChange={(e) => onSeek?.(parseFloat(e.target.value))}
+                        className="w-full h-3 appearance-none cursor-pointer rounded-full backdrop-blur-md transition duration-500 bg-black/60"
                         style={{
-                            '--thumb-color': "#ffffff",
                             direction: "ltr",
-                            background: getBufferGradient()
-                            // background: `
-                            //     linear-gradient(to right, ${color} 0%, ${color} ${(currentTime / duration) * 100}%,
-                            //     ${hexToRgba(color ?? '', 0.5)} ${(currentTime / duration) * 100}%,
-                            //     ${hexToRgba(color ?? '', 0.5)} ${(bufferedTime / duration) * 100}%,
-                            //     rgba(0,0,0,0.15) ${(bufferedTime / duration) * 100}%, rgba(0,0,0,0.15) 100%)
-                            // `
-                        } as React.CSSProperties}
+                            backgroundImage: getBufferGradient(),
+                            backgroundSize: '100% 100%',
+                            outline: 'none',
+                        }}
                     />
+
                 </div>
                 <div
                     onClick={(event) => event.stopPropagation()}
-                    className={'w-full flex justify-between items-center'}
+                    className={`w-full flex justify-between items-center bg-black/40 rounded-full backdrop-blur-md transition duration-500 px-5 py-3 ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:px-12' : ''}`}
                 >
                     <div
                         className={`flex gap-3 items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:gap-5' : ''}`}>
@@ -229,8 +201,7 @@ function VideoPlayerControl({
                             event.stopPropagation()
                             onMaximize?.()
                         }}>
-                            <MaximizeSvg
-                                className={'fill-light-surface'}/>
+                            {isFullScreen ? <MinimizeSvg width={30}/> : <MaximizeSvg width={30}/>}
                         </div>
                         <div className={'min-w-5 flex items-center justify-center cursor-pointer'}
                              onMouseUp={(event) => {
@@ -261,20 +232,6 @@ function VideoPlayerControl({
                                 </span>
                             </Transition>
                         </div>
-                    </div>
-                    <div
-                        className={`flex gap-3 items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:gap-5' : ''}`}>
-                        <div className={'flex gap-1 items-center'}>
-                            <span className={'text-white font-bold text-sm tabular-nums'}>
-                                {formatTime(duration)}
-                            </span>
-                            <span className={'text-white font-bold text-sm'}>
-                                /
-                            </span>
-                            <span className={'text-white font-bold text-sm tabular-nums'}>
-                                {formatTime(currentTime)}
-                            </span>
-                        </div>
                         <div className={'cursor-pointer'} onClick={(event) => {
                             event.stopPropagation()
                             onToggleMute?.()
@@ -286,35 +243,44 @@ function VideoPlayerControl({
                                 isVisible={!changeMute}>
                                 {
                                     !isMuted
-                                        ? <VolumeUnMuteSvg
-                                            className={'fill-light-surface'}/>
+                                        ? <VolumeUnMuteSvg width={30}/>
 
-                                        : <VolumeMuteSvg
-                                            className={'fill-light-surface'}/>
+                                        : <VolumeMuteSvg width={30}/>
                                 }
                             </Transition>
+                        </div>
+                    </div>
+                    <div
+                        className={`flex gap-3 items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:gap-5' : ''}`}>
+                        <div className={'flex gap-1 items-center rounded-full border border-white px-3 py-1'}>
+                            <span className={'text-white text-sm tabular-nums'}>
+                                {formatTime(duration)}
+                            </span>
+                            <span className={'text-white text-sm'}>
+                                /
+                            </span>
+                            <span className={'text-white text-sm tabular-nums'}>
+                                {formatTime(currentTime)}
+                            </span>
                         </div>
                         <div className={'cursor-pointer'} onClick={(event) => {
                             event.stopPropagation()
                             onForwardCurrentTime?.()
                         }}>
-                            <ForwardSvg
-                                className={'fill-light-surface'}/>
+                            <ForwardSvg width={30}/>
                         </div>
                         <div className={'cursor-pointer'} onClick={(event) => {
                             event.stopPropagation()
                             onBackwardCurrentTime?.()
                         }}>
-                            <BackwardSvg
-                                className={'fill-light-surface'}/>
+                            <BackwardSvg width={30}/>
                         </div>
                         <div className={'cursor-pointer'} onClick={(event) => {
                             event.stopPropagation()
                             onTogglePlay?.()
                         }}>
                             <PauseSvg
-                                width={20}
-                                className={'fill-light-surface'}/>
+                                width={30}/>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ export interface VideoPlayerControlInterface {
     isPlayed: boolean,
     isMuted: boolean,
     isShowControl: boolean,
+    isFullScreen: boolean,
     isError: boolean,
     currentTime: number,
     duration: number,
