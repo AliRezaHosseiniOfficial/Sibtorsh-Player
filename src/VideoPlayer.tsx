@@ -520,6 +520,9 @@ function VideoPlayer({
                     (videoRef.current)?.play()
                 }
             }}
+            style={{
+                direction: "rtl"
+            }}
             className={!safariIsFullscreen
                 ? 'w-full h-full relative'
                 : 'fullscreen-safari'}>

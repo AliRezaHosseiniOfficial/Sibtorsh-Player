@@ -6,7 +6,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
     plugins: [
-        react(),
+        react({
+            jsxRuntime: "automatic",
+        }),
         tailwindcss(),
         // dts({
         //     insertTypesEntry: true
@@ -19,13 +21,20 @@ export default defineConfig({
             fileName: (format) => `sibtorsh-player.${format}.js`
         },
         rollupOptions: {
-            external: ['react', 'react-dom'],
+            external: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime', 'prop-types'],
             output: {
                 globals: {
                     react: 'React',
-                    'react-dom': 'ReactDOM'
+                    'react-dom': 'ReactDOM',
+                    'prop-types': 'PropTypes'
                 }
             }
+        },
+        minify: "esbuild"
+    },
+    define: {
+        define: {
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
         }
     }
 });

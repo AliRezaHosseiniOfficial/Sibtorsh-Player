@@ -16,6 +16,7 @@ import useDeviceType from "../utils/useDeviceType";
 import DeviceTypeEnum from "../enums/DeviceTypeEnum";
 import {VideoPlayerControlInterface} from "../interfaces/VideoPlayerControlInterface.ts";
 import {RateInterface} from "../interfaces/RateInterface.ts";
+import MainControl from "./MainControl.tsx";
 
 function VideoPlayerControl({
                                 canPlay,
@@ -125,9 +126,11 @@ function VideoPlayerControl({
             <div
                 className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer'}
             >
-                <PlayCircleSvg
-                    width={50}
-                />
+                <MainControl>
+                    <PlayCircleSvg
+                        width={50}
+                    />
+                </MainControl>
             </div>
         </Transition>
         <Transition
@@ -139,7 +142,9 @@ function VideoPlayerControl({
                 onClick={() => onTryAgain?.()}
                 className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-dark-surface/30 backdrop-blur-[1px]'}
             >
-                <RetrySvg />
+                <MainControl>
+                    <RetrySvg/>
+                </MainControl>
             </div>
         </Transition>
         <Transition
@@ -150,9 +155,11 @@ function VideoPlayerControl({
             <div
                 className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-dark-surface/30 backdrop-blur-[1px]'}
             >
-                <Loading
-                    classNames={"w-[50px]"}
-                />
+                <MainControl>
+                    <Loading
+                        classNames={"w-[50px]"}
+                    />
+                </MainControl>
             </div>
         </Transition>
         {canPlay && isPlayed
@@ -247,7 +254,7 @@ function VideoPlayerControl({
                                 exitAnimateClass={'heartBeat'}
                                 speedAnimateClass={'faster'}
                                 isVisible={!changeRate}>
-                                <span className={'text-light-surface font-bold text-lg'}>
+                                <span className={'text-white font-bold text-lg'}>
                                     {first(filter(rates, (item: RateInterface) => {
                                         return item.active
                                     }))?.label}
@@ -258,13 +265,13 @@ function VideoPlayerControl({
                     <div
                         className={`flex gap-3 items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:gap-5' : ''}`}>
                         <div className={'flex gap-1 items-center'}>
-                            <span className={'text-light-surface font-bold text-sm tabular-nums'}>
+                            <span className={'text-white font-bold text-sm tabular-nums'}>
                                 {formatTime(duration)}
                             </span>
-                            <span className={'text-light-surface font-bold text-sm'}>
+                            <span className={'text-white font-bold text-sm'}>
                                 /
                             </span>
-                            <span className={'text-light-surface font-bold text-sm tabular-nums'}>
+                            <span className={'text-white font-bold text-sm tabular-nums'}>
                                 {formatTime(currentTime)}
                             </span>
                         </div>
