@@ -181,7 +181,7 @@ function VideoPlayerControl({
             </div>
             : null}
         <Transition
-            className={`absolute bottom-0 left-0 right-0 flex flex-col gap-1 items-center bg-dark-surface/50 rounded-lg backdrop-blur-md transition duration-500 px-3 pb-3 ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:px-12' : ''}`}
+            className={`absolute bottom-0 left-0 right-0 flex flex-col gap-1 items-center bg-black/50 rounded-lg backdrop-blur-md transition duration-500 px-3 pb-3 ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:px-12' : ''}`}
             enterAnimateClass={'fadeIn'}
             exitAnimateClass={'fadeOut'}
             speedAnimateClass={'faster'}
