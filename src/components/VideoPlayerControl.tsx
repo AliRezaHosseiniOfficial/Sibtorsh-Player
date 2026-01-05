@@ -125,7 +125,7 @@ function VideoPlayerControl({
         >
             <div
                 onClick={() => onTryAgain?.()}
-                className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-dark-surface/30 backdrop-blur-[1px]'}
+                className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-black/30 backdrop-blur-[1px]'}
             >
                 <MainControl>
                     <RetrySvg width={50}/>
@@ -138,7 +138,7 @@ function VideoPlayerControl({
             isVisible={!canPlay && !isError}
         >
             <div
-                className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-dark-surface/30 backdrop-blur-[1px]'}
+                className={'absolute top-0 bottom-0 left-0 right-0 flex justify-center items-center cursor-pointer bg-black/30 backdrop-blur-[1px]'}
             >
                 <MainControl>
                     <Loading
@@ -181,7 +181,7 @@ function VideoPlayerControl({
                         max={duration}
                         value={currentTime}
                         onChange={(e) => onSeek?.(parseFloat(e.target.value))}
-                        className="w-full h-3 appearance-none cursor-pointer rounded-full backdrop-blur-md transition duration-500 bg-black/60"
+                        className="w-full h-3 appearance-none cursor-pointer rounded-full backdrop-blur-xs transition duration-500 bg-black/60"
                         style={{
                             direction: "ltr",
                             backgroundImage: getBufferGradient(),
@@ -193,7 +193,7 @@ function VideoPlayerControl({
                 </div>
                 <div
                     onClick={(event) => event.stopPropagation()}
-                    className={`w-full flex justify-between items-center bg-black/40 rounded-full backdrop-blur-md transition duration-500 px-5 py-3 ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:px-12' : ''}`}
+                    className={`w-full flex justify-between items-center bg-black/40 rounded-full backdrop-blur-xs transition duration-500 px-5 py-3 ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:px-12' : ''}`}
                 >
                     <div
                         className={`flex gap-3 items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'landscape:gap-5' : ''}`}>

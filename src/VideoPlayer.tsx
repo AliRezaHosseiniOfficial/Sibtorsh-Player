@@ -8,6 +8,7 @@ import useDeviceType from "./utils/useDeviceType.ts";
 import DeviceTypeEnum from "./enums/DeviceTypeEnum.ts";
 import usePWAInstalled from "./utils/usePWAInstalled.tsx";
 import "./styles/video-player.css"
+import "animate.css"
 
 function VideoPlayer({
                          src,
