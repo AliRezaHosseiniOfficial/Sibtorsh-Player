@@ -525,7 +525,7 @@ function VideoPlayer({
             }}
             className={!safariIsFullscreen
                 ? 'w-full h-full relative'
-                : 'fullscreen-safari'}>
+                : 'sp__fullscreen__safari'}>
             <video
                 width={"100%"}
                 height={"100%"}
