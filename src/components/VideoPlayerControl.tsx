@@ -19,7 +19,7 @@ import {RateInterface} from "../interfaces/RateInterface.ts";
 import MainControl from "./MainControl.tsx";
 import MinimizeSvg from "./svg/MinimizeSvg.tsx";
 import PlaySvg from "../components/svg/PlaySvg";
-import {MouseEvent} from "react"
+import {MouseEvent, TouchEvent} from "react"
 
 function VideoPlayerControl({
                                 canPlay,
@@ -58,7 +58,7 @@ function VideoPlayerControl({
 
         const playedGradient = `linear-gradient(to right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,1) ${playedPercent}%, transparent ${playedPercent}%)`;
 
-        const bufferColor = "rgba(0, 0, 0, 0.6)";
+        const bufferColor = "rgba(255, 255, 255, 0.3)";
         const trackBg = "rgba(255, 255, 255, 0.1)";
 
         let bufferParts = [`transparent ${playedPercent}%`];
@@ -112,6 +112,29 @@ function VideoPlayerControl({
         const rect = target.getBoundingClientRect()
 
         const x = e.clientX - rect.left
+        const percent = Math.min(Math.max(x / rect.width, 0), 1)
+        const time = percent * duration
+
+        setTooltipTime(time)
+
+        if (tooltip.current) {
+            tooltip.current.style.left = `${x}px`
+        }
+
+        setIsShowTooltip(true)
+
+        setTimeout(() => {
+            if (!isMouseOnRange) {
+                setIsShowTooltip(false)
+            }
+        }, 1000)
+    }
+
+    const onTouchMove = (e: TouchEvent) => {
+        const target = e.currentTarget as HTMLElement
+        const rect = target.getBoundingClientRect()
+
+        const x = e.touches[0].clientX - rect.left
         const percent = Math.min(Math.max(x / rect.width, 0), 1)
         const time = percent * duration
 
@@ -231,6 +254,7 @@ function VideoPlayerControl({
                             setIsShowTooltip(false)
                             setIsMouseOnRange(false)
                         }}
+                        onTouchMove={onTouchMove}
                         onMouseMove={onMouseMove}
                         onChange={(e) => onSeek?.(parseFloat(e.target.value))}
                         className="sp:w-full sp:h-3 sp:appearance-none sp:cursor-pointer sp:rounded-full sp:backdrop-blur-xs sp:transition sp:duration-500 sp:bg-black/60"
@@ -245,7 +269,7 @@ function VideoPlayerControl({
                 </div>
                 <div
                     onClick={(event) => event.stopPropagation()}
-                    className={`sp:w-full sp:flex sp:justify-between sp:items-center sp:bg-black/40 sp:rounded-full sp:backdrop-blur-xs sp:transition sp:duration-500 sp:px-[0.7em] sp:py-[0.7em] ${deviceType === DeviceTypeEnum.MOBILE ? 'sp:landscape:px-[1em]' : ''}`}
+                    className={`sp:[container-type:inline-size] sp:w-full sp:flex sp:justify-between sp:items-center sp:bg-black/40 sp:rounded-full sp:backdrop-blur-xs sp:transition sp:duration-500 sp:px-[0.7em] sp:py-[0.7em] ${deviceType === DeviceTypeEnum.MOBILE ? 'sp:landscape:px-[1em]' : ''}`}
                 >
                     <div
                         className={`sp:flex sp:gap-[0.7em] sp:items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'sp:landscape:gap-[1em]' : ''}`}>
@@ -305,14 +329,14 @@ function VideoPlayerControl({
                     <div
                         className={`sp:flex sp:gap-[0.7em] sp:items-center ${deviceType === DeviceTypeEnum.MOBILE ? 'sp:landscape:gap-[1em]' : ''}`}>
                         <div
-                            className={'sp:flex sp:gap-[0.3em] sp:items-center sp:rounded-full sp:border sp:border-white sp:px-3 sp:py-1'}>
-                            <span className={'sp:text-white sp:text-sm sp:tabular-nums'}>
+                            className={'sp:flex sp:gap-[0.3em] sp:items-center sp:rounded-full sp:border sp:border-white sp:px-3 sp:py-1 sp:[@container(max-width:500px)]:px-1'}>
+                            <span className={'sp:text-white sp:[@container(max-width:500px)]:text-xs sp:text-sm sp:tabular-nums'}>
                                 {formatTime(duration)}
                             </span>
-                            <span className={'sp:text-white sp:text-sm'}>
+                            <span className={'sp:text-white sp:[@container(max-width:500px)]:text-xs sp:[@container(max-width:500px)]:hidden sp:text-sm'}>
                                 /
                             </span>
-                            <span className={'sp:text-white sp:text-sm sp:tabular-nums'}>
+                            <span className={'sp:text-white sp:[@container(max-width:500px)]:text-xs sp:[@container(max-width:500px)]:hidden sp:text-sm sp:tabular-nums'}>
                                 {formatTime(currentTime)}
                             </span>
                         </div>

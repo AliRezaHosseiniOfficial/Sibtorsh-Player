@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.2.14",
+  "version": "0.2.15",
   "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/sibtorsh-player.umd.js",
@@ -12,7 +12,7 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build:js": "vite build",
     "build:types": "tsc -p tsconfig.types.json",
     "build": "npm run build:js && npm run build:types",
