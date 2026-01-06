@@ -9,7 +9,7 @@ export default defineConfig({
         react({
             jsxRuntime: "automatic",
         }),
-        tailwindcss(),
+        tailwindcss()
         // dts({
         //     insertTypesEntry: true
         // })

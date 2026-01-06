@@ -7,7 +7,7 @@ import Hls from 'hls.js';
 import useDeviceType from "./utils/useDeviceType.ts";
 import DeviceTypeEnum from "./enums/DeviceTypeEnum.ts";
 import usePWAInstalled from "./utils/usePWAInstalled.tsx";
-import "./styles/video-player.css"
+import "./index.css"
 import "animate.css"
 
 function VideoPlayer({
@@ -294,19 +294,19 @@ function VideoPlayer({
             if (safariIsFullscreen) {
                 (videoRef.current)
                     ?.classList
-                    .remove('!object-contain');
+                    .remove('sp:!object-contain');
                 (videoRef.current)
                     ?.parentElement
                     ?.classList
-                    .remove('!z-[999]')
+                    .remove('sp:!z-[999]')
             } else {
                 (videoRef.current)
                     ?.classList
-                    .add('!object-contain');
+                    .add('sp:!object-contain');
                 (videoRef.current)
                     ?.parentElement
                     ?.classList
-                    .add('!z-[999]')
+                    .add('sp:!z-[999]')
             }
             setSafariIsFullscreen(!safariIsFullscreen)
         } else {
@@ -334,20 +334,20 @@ function VideoPlayer({
                 }
                 (videoRef.current)
                     ?.classList
-                    .add('!object-contain');
+                    .add('sp:!object-contain');
                 (videoRef.current)
                     ?.parentElement
                     ?.classList
-                    .add('!z-[9999999]')
+                    .add('sp:!z-[9999999]')
             } else {
                 await document.exitFullscreen();
                 (videoRef.current)
                     ?.classList
-                    .remove('!object-contain');
+                    .remove('sp:!object-contain');
                 (videoRef.current)
                     ?.parentElement
                     ?.classList
-                    .remove('!z-[9999999]')
+                    .remove('sp:!z-[9999999]')
             }
             orientationLockHandle()
         }
@@ -527,12 +527,12 @@ function VideoPlayer({
                 direction: "rtl"
             }}
             className={!safariIsFullscreen
-                ? 'w-full h-full relative'
+                ? 'sp:w-full sp:h-full sp:relative'
                 : 'sp__fullscreen__safari'}>
             <video
                 width={"100%"}
                 height={"100%"}
-                className={`w-full h-full object-cover`}
+                className={`sp:w-full sp:h-full sp:object-cover`}
                 ref={videoRef}
                 playsInline
                 webkit-playsinline={'true'}

@@ -1,7 +1,7 @@
 import SvgInterface from "../../interfaces/SvgInterface.ts";
 
 export default function ({width=24}: SvgInterface) {
-    return <svg width={width} height={width} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    return <svg width={`${width}em`} height={`${width}em`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M15.72 9.69002C13.67 7.63002 10.33 7.63002 8.27999 9.69002C6.21999 11.75 6.21999 15.08 8.27999 17.13C10.34 19.19 13.67 19.19 15.72 17.13C17.78 15.07 17.78 11.74 15.72 9.69002ZM12.53 13.94L10.94 15.53C10.79 15.68 10.6 15.75 10.41 15.75C10.22 15.75 10.02 15.68 9.87999 15.53C9.58999 15.24 9.58999 14.76 9.87999 14.46L11.47 12.87C11.76 12.58 12.24 12.58 12.54 12.87C12.83 13.17 12.83 13.65 12.53 13.94Z"
             fill="#fff"/>
